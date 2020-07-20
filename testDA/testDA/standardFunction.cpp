@@ -100,9 +100,9 @@ int ReadCacheAccount(char user[], char pass[])
 		fclose(f);*/
 }
 
-void printAlert(int x, int y, int height, int width, int color, const char alert[])
+void printAlert(int x, int y, int width, int height, int color, const char alert[])
 {
-	drawRectangle(x, y, height, width, color);
+	drawRectangle(x, y, width, height, color);
 	gotoxy(53, y+1);
 	printf("%s", alert);
 	Sleep(1500);

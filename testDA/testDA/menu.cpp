@@ -99,14 +99,21 @@ void choseReaderAction()
 	ReadMenuData(numAction, action);
 	int num = GetAuthority();
 	char ch = _getch();
-	if (ch == '1') ModifyReader();
+	if (ch == '1')
+	{
+		List_Reader L = CreateReaderList();
+		ViewReaderList(L, 10);
+	}
 	if (ch == '2')
 	{
 		if (num != 3) CreateReader();
 		else ch = _getch();
 	}
 	if (ch == '3') ModifyReader();
+	if (ch == '4') DeleteReader();
+	if (ch == '5') SearchReaderID();
+	if (ch == '6') SearchReaderName();
 	if (ch == '0') Logout();
-	if (ch == 27)exit(0);
-	if (ch== '†')Menu(numAction, action);
+	if (ch == 27) exit(0);
+	if (ch== '†') Menu(numAction, action);
 }

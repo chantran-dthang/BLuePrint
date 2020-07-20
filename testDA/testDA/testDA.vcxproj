@@ -123,6 +123,7 @@
   <ItemGroup>
     <ClCompile Include="Actions.cpp" />
     <ClCompile Include="input.cpp" />
+    <ClCompile Include="LinkList.cpp" />
     <ClCompile Include="login.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="menu.cpp" />
@@ -132,6 +133,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actions.h" />
+    <ClInclude Include="LinkList.h" />
     <ClInclude Include="login.h" />
     <ClInclude Include="menu.h" />
     <ClInclude Include="standardFunction.h" />

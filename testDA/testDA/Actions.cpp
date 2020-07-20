@@ -6,6 +6,8 @@
 #include "input.h"
 #include"stdio.h"
 #include "struct.h"
+#include"LinkList.h"
+#include"iostream"
 
 
 
@@ -20,8 +22,9 @@ void CreateUser()
 	bool BACK = false;	//Biến kiểm tra có bấm 'Trở về' [F12] hay chưa?
 	do
 	{
-		//Vẽ khung đăng nhập
-		drawRectangle(39, 6, 50, 21, 3);
+		//Vẽ khung Background trang
+		drawRectangle(39, 6, 50, 23, 3);
+		//drawRectangle(39, 1, 50, 28, 15);
 		//Ghi các thuộc tính của trường nhập
 		gotoxy(41, 7);
 		printf("USERNAME[21]: ");
@@ -210,7 +213,7 @@ void CreateUser()
 			FILE *f = fopen("STOREZONE/menu.txt", "r");
 			fscanf(f, "%d %s", &actions, menu);
 			fclose(f);
-			drawRectangle(39, 6, 50, 21, 15);
+			drawRectangle(39, 6, 50, 23, 15);
 			Menu(actions, menu);
 			break;
 		}
@@ -1155,18 +1158,18 @@ void StoreInfoReader(Readers r)
 void DeleteReader()
 {
 	bool BACK = false;
-	drawRectangle(36, 6, 48, 7, 3);
-	gotoxy(38, 7);
+	drawRectangle(41, 6, 48, 7, 3);
+	gotoxy(41, 7);
 	printf("Nhap ma doc gia sach can xoa: ");
-	drawRectangle(38, 8, 44, 1, 15);
+	drawRectangle(41, 8, 44, 1, 15);
 	Readers A;
 	errno_t err;
 
 	//Nhập ISBN
 	do
 	{
-		drawRectangle(36, 9, 48, 3, 3);
-		drawRectangle(38, 8, 44, 1, 15);
+		drawRectangle(41, 9, 48, 3, 3);
+		drawRectangle(41, 8, 44, 1, 15);
 		//Vẽ nút điều hướng
 		textBgColor(0, 7);
 		gotoxy(58, 10);
@@ -1175,7 +1178,7 @@ void DeleteReader()
 		printf("F12 to Back");
 		textBgColor(0, 15);
 
-		gotoxy(38, 8);
+		gotoxy(41, 8);
 		A.code = Input9Num();
 		if (A.code == -1)
 		{
@@ -1184,27 +1187,13 @@ void DeleteReader()
 		//Nếu chưa bấm 'Trở về' thì Xử lý dữ liệu
 		if (!BACK)
 		{
-			char textcode[10];
-			strcpy(textcode, toStr(A.code));
 			char link[128];
-			strcpy(link, Path("readers/", textcode, ".bin"));
+			char codetxt[10];
+			sprintf(codetxt, "%d", A.code);
+			strcpy(link, Path("readers/", codetxt, ".bin"));
 			int stt = remove(link);
-			if (stt == 0)
-			{
-				//In thông báo
-				drawRectangle(36, 9, 48, 3, 10);
-				gotoxy(51, 10);
-				printf("XOA SACH THANH CONG");
-				Sleep(1000);
-			}
-			else
-			{
-				//In thông báo
-				drawRectangle(36, 9, 48, 3, 12);
-				gotoxy(51, 10);
-				printf("DOC GIA KHONG TON TAI");
-				Sleep(1000);
-			}
+			if (stt == 0) printAlert(41, 9, 48, 3, 10, "DELEETE SUCCESSFULL");
+			else printAlert(41, 9, 48, 3, 12, "READER NOT AVAILABLE");
 		}
 		//Nếu bấm 'Trở về'
 		else
@@ -1221,3 +1210,301 @@ void DeleteReader()
 	} while (!BACK);
 }
 
+List_Reader CreateReaderList()
+{
+	FILE* f;
+	List_Reader L;
+	Init_Reader(L);
+	f = fopen("readers/List.bin", "rb");
+	if (f)
+	{
+		long code;
+		fread(&code, sizeof(long), 1, f);
+		fclose(f);
+		for (long i = 1; i <= code; i++)
+		{
+			char link[128];
+			char codetxt[10];
+			sprintf(codetxt, "%d", i);
+			strcpy(link, Path("readers/", codetxt, ".bin"));
+			f = fopen( link, "rb");
+			if (f)
+			{
+				Readers reader;
+				fread(&reader, sizeof(Readers), 1, f);
+				fclose(f);
+				Insert_first_Reader(L, reader);
+			}
+		}
+	}
+	return L;
+}
+void ViewReaderList(List_Reader L, int fullheight)
+{
+	drawRectangle(39, 6, 50, 23, 24);
+	drawRectangle(39, 6, 50, 1, 1);
+	textBgColor(15, 1);
+	gotoxy(42, 6); printf("MA DOC GIA");
+	gotoxy(59, 6); printf("TEN DOC GIA");
+	gotoxy(76, 6); printf("NGAY HET HAN");
+	//VerticalLine(48, CurrentLine, 1, 15, 1);
+	//VerticalLine(69, CurrentLine, 1, 15, 1);
+
+	/*drawRectangle(36, CurrentLine + 1, 48, fullHeight - 1, 3);
+	VerticalLine(48, CurrentLine + 1, fullHeight - 1, 15, 3);
+	VerticalLine(69, CurrentLine + 1, fullHeight - 1, 15, 3);*/
+
+	textBgColor(14, 24);
+	Node_Reader* p = L.pHead;
+
+	//int NumMonth = ReadNumMonth();
+	int count = 0;
+	for (int i = 0; i < fullheight - 1; i++)
+	{
+		if (p == NULL) break;
+		gotoxy(42, 6 + 1 + i); printf("%09d", p->Data.code);
+		if (strlen(p->Data.fullname) <= 20)
+		{
+			gotoxy(54, 6 + 1 + i);
+			printf("%s", p->Data.fullname);
+		}
+		else
+		{
+			gotoxy(54, 6 + 1 + i);
+			char fullname[18];
+			fullname[17] = '\0';
+			strncpy(fullname, p->Data.fullname, 17);
+			printf("%s", fullname);
+			printf("...");
+		}
+		gotoxy(76, 6 + 1 + i);
+		printf("%02d/%02d/%04d", p->Data.expirationDay.Date, p->Data.expirationDay.Month, p->Data.expirationDay.Year);
+		count++;
+		p = p->pNext;
+		if (p == NULL) break;
+	}
+	if (count > 10)
+	{
+		gotoxy(42, fullheight + 6);  cout << "...";
+		gotoxy(54, fullheight + 6); cout << "...";
+		gotoxy(76, fullheight + 6); cout << "...";
+		
+	}
+	drawRectangle(41, 25, 46, 2, 15);
+	gotoxy(41, 26);
+	cout << "(Press number 0 to exit)";
+	gotoxy(41, 25);
+	cout << "Enter reader code to get more information:";
+	int code = Input9Num();
+	FullReadersInfoID(3, 6, 42, 0, code);
+}
+
+void FullReadersInfoID(int posX, int posY, int TextColor, int BgColor, int readercode)
+{
+	if (readercode == 0)
+	{
+		drawRectangle(39, 6, 50, 23, 15);
+		int n;
+		char list[9];
+		ReadMenuData(n, list);
+		drawRectangle(2, 5, 35, 11, 0);
+		MenuReaders(n, list);
+	}
+	
+	char link[128];
+	char codetxt[10];
+	sprintf(codetxt, "%d", readercode);
+	strcpy(link, Path("readers/", codetxt, ".bin"));
+	FILE* f = fopen(link, "rb");
+	if (f)
+	{
+		drawRectangle(2, 5, 35, 11, 15);
+		Readers reader;
+		fread(&reader, sizeof(Readers), 1, f);
+		drawRectangle(posX, posY, 33, 9, BgColor);
+		textBgColor(TextColor, BgColor);
+		gotoxy(posX, posY);
+		printf("- Ma doc gia: %09ld", reader.code);
+		gotoxy(posX, posY + 1);
+		printf("- Ho va ten: %s", reader.fullname);
+		gotoxy(posX, posY + 2);
+		printf("- CMND: %s", reader.ID);
+		gotoxy(posX, posY + 3);
+		printf("- Ngay sinh: %02d/%02d/%04d", reader.DoB.Date, reader.DoB.Month, reader.DoB.Year);
+		gotoxy(posX, posY + 4);
+		printf("- Gioi tinh: ");
+		if (reader.sex == 1)
+		{
+			printf("Nam");
+		}
+		else
+			if (reader.sex == 2)
+			{
+				printf("Nu");
+			}
+			else
+			{
+				printf("Khac");
+			}
+		gotoxy(posX, posY + 5);
+		printf("- Email: %s", reader.email);
+		gotoxy(posX, posY + 6);
+		printf("- Dia chi: %s", reader.address);
+		gotoxy(posX, posY + 7);
+		printf("- Ngay lap the: %02d/%02d/%04d", reader.createdDay.Date, reader.createdDay.Month, reader.createdDay.Year);
+		gotoxy(posX, posY + 8);
+		printf("- Ngay het han: %02d/%02d/%04d", reader.expirationDay.Date, reader.expirationDay.Month, reader.expirationDay.Year);
+		fclose(f);
+		List_Reader L = CreateReaderList();
+		ViewReaderList(L, 10);
+	}
+	else
+	{
+		printAlert(41, 9, 3, 46, 12, "READER NOT AVAILABLE");
+		List_Reader L = CreateReaderList();
+		ViewReaderList(L, 10);
+	}
+}
+
+void SearchReaderID()
+{
+	bool BACK = false;
+	drawRectangle(39, 6, 50, 23, 15);
+	drawRectangle(41, 6, 46, 7, 3);
+	gotoxy(43, 7);
+	printf("Enter ID: ");
+	drawRectangle(43, 8, 36, 1, 15);
+	Readers A;
+
+	//Nhập CMND
+	do
+	{
+		drawRectangle(41, 9, 44, 3, 3);
+		drawRectangle(43, 8, 40, 1, 15);
+		//Vẽ nút điều hướng
+		textBgColor(0, 7);
+		gotoxy(58, 10);
+		printf("ENTER to Search a reader");
+		gotoxy(58, 11);
+		printf("F12 to Back");
+		textBgColor(0, 15);
+
+		gotoxy(43, 8);
+
+		int status = InputIndentity(A.ID);
+		if (status == -1)
+		{
+			BACK = true;
+		}
+
+		//Nếu chưa bấm 'Trở về' thì Xử lý dữ liệu
+		if (!BACK)
+		{
+			List_Reader L = CreateReaderList();
+			List_Reader L2;
+			Init_Reader(L2);
+			Node_Reader* p;
+			for (p = L.pTail; p != NULL; p = p->pPrev)
+			{
+				if (strcmp(p->Data.ID, A.ID) == 0)
+				{
+					Insert_first_Reader(L2, p->Data);
+				}
+			}
+			if (Len_Reader(L2) > 0)
+			{
+				ViewReaderList(L2, 10);
+				break;
+			}
+			else printAlert(44, 9, 40, 3, 12, "READER NOT AVAILABLE");
+		}
+		//Nếu bấm 'Trở về'
+		else
+		{
+			//Trở về BooksMenu
+			int n;
+			char list[10];
+			drawRectangle(0, 18, 112, 9, 15);
+			ReadReadersMenuData(n, list);
+			drawRectangle(36, 6, 48, 7, 15);
+			MenuReaders(n, list);
+			break;
+		}
+
+	} while (!BACK);
+}
+
+void SearchReaderName()
+{
+	bool BACK = false;
+	drawRectangle(36, 6, 48, 7, 3);
+	gotoxy(38, 7);
+	printf("Nhap Ten: ");
+	drawRectangle(38, 8, 44, 1, 15);
+	Readers A;
+	errno_t err;
+
+	//Nhập tên sách
+	do
+	{
+		drawRectangle(36, 9, 48, 3, 3);
+		drawRectangle(38, 8, 44, 1, 15);
+		//Vẽ nút điều hướng
+		textBgColor(0, 7);
+		gotoxy(58, 10);
+		printf("ENTER to Search a reader");
+		gotoxy(58, 11);
+		printf("F12 to Back");
+		textBgColor(0, 15);
+
+		gotoxy(38, 8);
+		int status = InputFullname(A.fullname);
+		if (status == -1)
+		{
+			BACK = true;
+		}
+
+		//Nếu chưa bấm 'Trở về' thì Xử lý dữ liệu
+		if (!BACK)
+		{
+			List_Reader L = CreateReaderList();
+			List_Reader L2;
+			Init_Reader(L2);
+			Node_Reader* p;
+			for (p = L.pTail; p != NULL; p = p->pPrev)
+			{
+				if (strstr(p->Data.fullname, A.fullname) != NULL)
+				{
+					Insert_first_Reader(L2, p->Data);
+				}
+			}
+			if (Len_Reader(L2) > 0)
+			{
+				ViewReaderList(L2, 10);
+				break;
+			}
+			else
+			{
+				//In thông báo
+				drawRectangle(36, 9, 48, 3, 12);
+				gotoxy(51, 10);
+				printf("DOC GIA KHONG TON TAI");
+				Sleep(1000);
+			}
+			//MoveSelectBooksView(L2);
+			//FullBooksInfo(0, 18, 0, 15, L2.pHead);
+		}
+		//Nếu bấm 'Trở về'
+		else
+		{
+			//Trở về BooksMenu
+			int n;
+			char list[10];
+			ReadReadersMenuData(n, list);
+			//drawRectangle(36, 6, 48, 7, 15);
+			MenuReaders(n, list);
+			break;
+		}
+
+	} while (!BACK);
+}

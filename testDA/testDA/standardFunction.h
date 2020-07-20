@@ -22,4 +22,4 @@ void ReadReadersMenuData(int& n, char list[]);
 char* toStr(long n);
 char* Path(const char s1[], char s2[], const char s3[]);
 
-void printAlert(int x, int y, int height, int width, int color, const char alert[]);
+void printAlert(int x, int y, int width, int height, int color, const char alert[]);

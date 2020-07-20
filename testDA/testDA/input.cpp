@@ -70,7 +70,7 @@ int InputUser(char user[])
 }
 
 void Input(char user[], char pass[]) {
-	drawRectangle(39, 1, 50, 20, 15);
+	drawRectangle(39, 1, 50, 28, 15);
 	DrawAppNameTab(15, 4);
 	drawRectangle(47, 6, 35, 10, 3);
 	gotoxy(48, 7);
@@ -158,7 +158,7 @@ int Input1Num()
 		{
 			day[i] = ch;//stores a in pass
 			++i;
-			cout << "*";
+			cout << ch;
 		}
 		if (ch == '\b'&&i >= 1)//if user typed backspace
 			//i should be greater than 1.
