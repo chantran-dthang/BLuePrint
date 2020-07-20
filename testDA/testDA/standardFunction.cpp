@@ -1,5 +1,6 @@
 ﻿#define _CRT_SECURE_NO_WARNINGS
 #include"standardFunction.h"
+#include "Actions.h"
 #include "conio.h"
 #include "stdio.h"
 #include <cstring>
@@ -18,6 +19,7 @@ void initSystemFolder()
 	_mkdir("USER/admin");
 	_mkdir("USER/experts");
 	_mkdir("USER/managers");
+	CreateFileCSV();
 }
 
 int GetAuthority()

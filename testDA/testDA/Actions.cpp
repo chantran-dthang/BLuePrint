@@ -5,6 +5,7 @@
 #include"menu.h"
 #include "input.h"
 #include"stdio.h"
+#include "struct.h"
 
 
 
@@ -880,7 +881,6 @@ void CreateReader()
 		char list[11];
 		ReadReadersMenuData(n, list);
 		
-
 		//Nếu chưa ấn 'Trở về' [F12]
 		if (!BACK)
 		{
@@ -901,14 +901,9 @@ void CreateReader()
 				fclose(f);
 			}
 
-			/*drawRectangle(36, 12, 48, 3, 10);
-			char Alert[100] = "THEM DOC GIA THANH CONG";
-			gotoxy(36 + (48 - strlen(Alert)) / 2, 13);
-			printf("%s", Alert);
-			//Ngưng chương trình 1s để người dùng đọc thông báo
-			Sleep(1000);*/
+			StoreInfoReader(A);
 			printAlert(42, 12, 46, 3, 10, "CREATE READER SUCCESSFULL");
-		
+
 		}
 		//Nếu đã ấn 'Trở về' [F12]
 		else
@@ -920,6 +915,309 @@ void CreateReader()
 	} while (!BACK);
 	gotoxy(44, 0);
 }
+void ModifyReader()
+{
+	bool BACK = false;
+	//Title(">>CHINH SUA THONG TIN");
+	do
+	{
+		int n;
+		char list[9];
+		char user[21], pass[21];
+		ReadMenuData(n, list);
+		ReadCacheAccount(user, pass);
+		int k = GetAuthority();
+		//Tạo đường dẫn đến file người dùng
+		char link[256];
+		if (k == 1)
+		{
+			strcpy(link, "USER/admin/");
+		}
+		if (k == 2)
+		{
+			strcpy(link, "USER/managers/");
+		}
+		if (k == 3)
+		{
+			strcpy(link, "USER/experts/");
+		}
+		strcat(link, user);
+		strcat(link, ".bin\0");
 
+		Accounts A = GetAccountData(link);
 
+		//Vẽ khung nhập thông tin
+		drawRectangle(39, 6, 50, 21, 3);
+		//Ghi các thuộc tính của trường nhập và Thông tin của tài khoản hiện hành
+
+		gotoxy(41, 7);
+		printf("FULLNAME[44]: ");
+		gotoxy(41, 8);
+		if (strlen(A.fullname) > 0)
+		{
+			printf("%s", A.fullname);
+		}
+		else
+		{
+			printf("<NULL>");
+		}
+		gotoxy(41, 10);
+		printf("DAY OF BIRTH: ");
+		gotoxy(41, 11);
+		printf("%02d/%02d/%02d", A.DoB.Date, A.DoB.Month, A.DoB.Year);
+		gotoxy(41, 13);
+		printf("ID[44]: ");
+		gotoxy(41, 14);
+		if (strlen(A.ID) > 0)
+		{
+			printf("%s", A.ID);
+		}
+		else
+		{
+			printf("<NULL>");
+		}
+		gotoxy(41, 16);
+		printf("ADDRESS[100]:");
+		gotoxy(41, 17);
+		if (strlen(A.address) > 0)
+		{
+			printf("%s", A.address);
+		}
+		else
+		{
+			printf("<NULL>");
+		}
+		gotoxy(41, 19);
+		printf("GENDER: 1->MALE ; 2-> FEMALE");
+		gotoxy(41, 20);
+		if (A.sex == 1)
+		{
+			printf("Male");
+		}
+		else
+		{
+			if (A.sex == 2)
+			{
+				printf("Female");
+			}
+			else
+			{
+				printf("Non defined");
+			}
+		}
+		//Vẽ khung input
+		drawRectangle(41, 9, 44, 1, 15);
+		drawRectangle(41, 12, 44, 1, 15);
+		gotoxy(42, 12);
+		printf("/  /");
+		drawRectangle(41, 15, 44, 1, 15);
+		drawRectangle(41, 18, 44, 1, 15);
+		drawRectangle(41, 21, 44, 1, 15);
+		//Vẽ nút điều hướng
+		textBgColor(0, 7);
+		gotoxy(62, 23);
+		printf("ENTER to Skip a step");
+		gotoxy(62, 24);
+		printf("F12 to Back");
+		textBgColor(0, 15);
+
+		Accounts B;
+		//Nhập Họ tên
+		if (!BACK)
+		{
+			gotoxy(41, 9);
+			int status = InputFullname(B.fullname);
+			if (status == -1)
+			{
+				BACK = true;
+			}
+		}
+		//Nhập Ngày sinh
+		if (!BACK)
+		{
+			gotoxy(41, 12);
+			B.DoB.Date = Input2Num();
+			if (B.DoB.Date == -1)
+			{
+				BACK = true;
+			}
+		}
+		if (!BACK)
+		{
+			gotoxy(44, 12);
+			B.DoB.Month = Input2Num();
+			if (B.DoB.Month == -1)
+			{
+				BACK = true;
+			}
+		}
+		if (!BACK)
+		{
+			gotoxy(47, 12);
+			B.DoB.Year = Input4Num();
+			if (B.DoB.Year == -1)
+			{
+				BACK = true;
+			}
+		}
+		//Nhập CMND
+		if (!BACK)
+		{
+			gotoxy(41, 15);
+			int status = InputIndentity(B.ID);
+			if (status == -1)
+			{
+				BACK = true;
+			}
+		}
+		//Nhập Địa chỉ
+		if (!BACK)
+		{
+			gotoxy(41, 18);
+			int status = InputAddress(B.address);
+			if (status == -1)
+			{
+				BACK = true;
+			}
+		}
+		//Nhập Giới tính
+		if (!BACK)
+		{
+			gotoxy(41, 21);
+			B.sex = Input1Num();
+			if (B.sex == -1)
+			{
+				BACK = true;
+			}
+		}
+		//Nếu chưa bấm 'Trở về' thì Xử lý
+		if (!BACK)
+		{
+			//Cập nhật các trường mà người dùng có nhập thông tin chỉnh sửa
+			//Các trường người Dùng không nhập và ấn Enter thì bỏ qua
+			if (strlen(B.fullname) != 0)
+			{
+				strcpy(A.fullname, B.fullname);
+			}
+			if (B.DoB.Date != 0 && B.DoB.Month != 0 && B.DoB.Year != 0)
+			{
+				A.DoB.Date = B.DoB.Date;
+				A.DoB.Month = B.DoB.Month;
+				A.DoB.Year = B.DoB.Year;
+			}
+			if (strlen(B.ID) != 0)
+			{
+				strcpy(A.ID, B.ID);
+			}
+			if (strlen(B.address) != 0)
+			{
+				strcpy(A.address, B.address);
+			}
+			if (B.sex != 0)
+			{
+				A.sex = B.sex;
+			}
+			//Cập nhật dữ liệu
+			WriteAccount(link, A);
+			//Thông báo chỉnh sửa thành công
+			drawRectangle(39, 12, 48, 3, 10);
+			gotoxy(45, 13);
+			printf("UPDATE SUCCESSFULLY");
+			Sleep(1000);
+		}
+		//Nếu đã bấm 'Trở về' thì quay về Main Menu
+		else
+		{
+			drawRectangle(39, 6, 50, 21, 15);
+			Menu(n, list);
+			break;
+		}
+	} while (!BACK);
+}
+
+void CreateFileCSV()
+{
+	FILE* f = fopen("readers/ReaderList.txt", "w");
+	char text[100];
+	sprintf(text, "%s%c%s%c%s%c%s%c%s%c%s%c%s%c%s%c%s", "code", ',', "fullname", ',', "ID", ',', "DoB", ',', "sex", ',', "email", ',', "address", ',', "createdDay", ',', "exspirationDay");
+	fputs(text, f);
+	fclose(f);
+}
+void StoreInfoReader(Readers r)
+{
+	FILE* f = fopen("readers/ReaderList.txt", "w");
+	char text[100];
+	sprintf(text, "%d%c%s%c%d%c%d%c%s%c%s%", r.code, ',', r.fullname, ',', r.ID, ',', r.sex, ',', r.email, ',',r.address);
+	fputs(text, f);
+	fclose(f);
+}
+
+void DeleteReader()
+{
+	bool BACK = false;
+	drawRectangle(36, 6, 48, 7, 3);
+	gotoxy(38, 7);
+	printf("Nhap ma doc gia sach can xoa: ");
+	drawRectangle(38, 8, 44, 1, 15);
+	Readers A;
+	errno_t err;
+
+	//Nhập ISBN
+	do
+	{
+		drawRectangle(36, 9, 48, 3, 3);
+		drawRectangle(38, 8, 44, 1, 15);
+		//Vẽ nút điều hướng
+		textBgColor(0, 7);
+		gotoxy(58, 10);
+		printf("ENTER to Delete a reader");
+		gotoxy(58, 11);
+		printf("F12 to Back");
+		textBgColor(0, 15);
+
+		gotoxy(38, 8);
+		A.code = Input9Num();
+		if (A.code == -1)
+		{
+			BACK = true;
+		}
+		//Nếu chưa bấm 'Trở về' thì Xử lý dữ liệu
+		if (!BACK)
+		{
+			char textcode[10];
+			strcpy(textcode, toStr(A.code));
+			char link[128];
+			strcpy(link, Path("readers/", textcode, ".bin"));
+			int stt = remove(link);
+			if (stt == 0)
+			{
+				//In thông báo
+				drawRectangle(36, 9, 48, 3, 10);
+				gotoxy(51, 10);
+				printf("XOA SACH THANH CONG");
+				Sleep(1000);
+			}
+			else
+			{
+				//In thông báo
+				drawRectangle(36, 9, 48, 3, 12);
+				gotoxy(51, 10);
+				printf("DOC GIA KHONG TON TAI");
+				Sleep(1000);
+			}
+		}
+		//Nếu bấm 'Trở về'
+		else
+		{
+			//Trở về BooksMenu
+			int n;
+			char list[10];
+			ReadReadersMenuData(n, list);
+			drawRectangle(36, 6, 48, 7, 15);
+			MenuReaders(n, list);
+			break;
+		}
+
+	} while (!BACK);
+}
 

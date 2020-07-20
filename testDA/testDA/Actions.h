@@ -21,3 +21,7 @@ void ChangePassword();
 void ManageReaders();
 void CreateReader();
 int ReadNumMonth();
+void ModifyReader();
+//void ViewReaderList();
+void CreateFileCSV();
+void StoreInfoReader(Readers r);

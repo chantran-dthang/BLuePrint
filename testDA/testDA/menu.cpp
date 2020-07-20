@@ -99,15 +99,14 @@ void choseReaderAction()
 	ReadMenuData(numAction, action);
 	int num = GetAuthority();
 	char ch = _getch();
-
-	if (ch == '1') ModifyAccount();
+	if (ch == '1') ModifyReader();
 	if (ch == '2')
 	{
-		if (num != 3) 	CreateReader();
+		if (num != 3) CreateReader();
 		else ch = _getch();
 	}
-	if (ch == '3') ChangePassword();
-	if (ch == 27)exit(0);
+	if (ch == '3') ModifyReader();
 	if (ch == '0') Logout();
-	if(ch== '†')Menu(numAction, action);
+	if (ch == 27)exit(0);
+	if (ch== '†')Menu(numAction, action);
 }
