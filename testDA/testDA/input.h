@@ -26,6 +26,10 @@ int InputFullname(char fullname[]);
 
 int InputString100(char string100[]);
 
+int InputISBN(char ID[]);
+
+int InputISBN2(char ISBN[]);
+
 bool ValidPass(char x);
 bool ValidUser(char x);
 bool ValidName(char x);

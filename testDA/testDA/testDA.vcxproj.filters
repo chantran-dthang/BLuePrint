@@ -42,6 +42,12 @@
     <ClCompile Include="LinkList.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ReaderActions.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BookActions.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="input.h">
@@ -69,6 +75,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="LinkList.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ReaderActions.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BookActions.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

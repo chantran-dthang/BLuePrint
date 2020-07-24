@@ -19,13 +19,15 @@ struct Accounts{
 
 struct Books{
 	char ISBN[14];
-	char name[101];
 	char author[101];
+	char name[101];
 	char publisher[101];
 	int published;
 	char category[101];
-	char prices[101];
-	int number;
+	char bookshelf[11];
+	int quantity;
+	//char prices[101];
+	//int number;
 	bool exist = true;
 }; 
 

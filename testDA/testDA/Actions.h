@@ -18,15 +18,3 @@ void ModifyAccount();
 void ChangePassword();
 
 //Manege Readers
-void ManageReaders();
-void CreateReader();
-int ReadNumMonth();
-void ModifyReader();
-void DeleteReader();
-void ViewReaderList(List_Reader L, int fullheight);
-List_Reader CreateReaderList();
-void FullReadersInfoID(int posX, int posY, int TextColor, int BgColor, int readercode);
-void CreateFileCSV();
-void StoreInfoReader(Readers r);
-void SearchReaderID();
-void SearchReaderName();

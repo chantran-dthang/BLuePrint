@@ -289,7 +289,7 @@ long Input9Num()
 int InputIndentity(char ID[])
 {
 	char ch;
-	for (int i = 0; i < 11;)//infinite loop
+	for (int i = 0; i < 10;)//infinite loop
 	{
 		ch = _getch();//stores char typed in a
 		if (ValidNumber(ch))
@@ -386,3 +386,97 @@ int InputString100(char string100[])
 	}
 	return 0;
 }
+
+int InputISBN(char ISBN[])
+{
+	char ch;
+	for (int i = 0; i < 10;)//infinite loop
+	{
+		ch = _getch();//stores char typed in a
+		if (ValidNumber(ch))
+			//check if a is numeric or alphabet
+		{
+			ISBN[i] = ch;//stores a in pass
+			++i;
+			cout << ch;
+		}
+		if (ch == '\b' && i >= 1)//if user typed backspace
+			//i should be greater than 1.
+		{
+			cout << "\b \b";//rub the character behind the cursor.
+			--i;
+		}
+		if (ch == 27) //if esc is pressed
+		{
+			system("cls");
+			exit(0);
+		}
+		if (ch == '\r')//if enter is pressed
+		{
+			ISBN[i] = '\0';//null means end of string.
+			break;//break the loop
+		}
+		if (ch == '†')return -1;
+	}
+	return 0;
+}
+
+int InputISBN2(char ISBN[])
+{
+	int len = 0;
+	int ch = _getch();
+	while (ch != 13)	//ENTER
+	{
+		if (ch == 0)	//Các phím từ F1-F10 kí tự đầu bằng 0
+		{
+			_getch();
+		}
+		else
+		{
+			if (ch == 224)	//Thuộc bộ mã ASCII mở rộng kí tự đầu bằng 224
+			{
+				ch = _getch();	//Đọc kí tự phía sau
+				if (ch == 134)	//F12
+				{
+					return -1;
+				}
+			}
+			//Thuộc bộ mã ASCII chuẩn
+			else
+			{
+				//BACKSPACE
+				if (ch == 8)
+				{
+					if (len > 0)
+					{
+						len--;
+						gotoxy(whereX() - 1, whereY());
+						printf(" ");
+						gotoxy(whereX() - 1, whereY());
+					}
+				}
+				else
+				{
+					//ESC
+					if (ch == 27)
+					{
+						gotoxy(44, 0);
+						textBgColor(15, 0);
+						system("cls");
+						exit(0);
+					}
+					//Nếu không phải ENTER, F2, BACKSPACE, ESC
+					if (len < 13 && ValidNumber(ch))
+					{
+						printf("%c", ch);
+						ISBN[len++] = ch;
+					}
+				}
+			}
+		}
+		ch = _getch();
+	}
+	ISBN[len] = '\0';
+	return 0;
+}
+

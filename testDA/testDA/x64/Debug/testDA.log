@@ -1,0 +1,3 @@
+﻿  BookActions.cpp
+C:\Users\Admin\Desktop\BLuePrint\testDA\testDA\BookActions.cpp(210,9): warning C4101: 'f': unreferenced local variable
+  testDA.vcxproj -> C:\Users\Admin\Desktop\BLuePrint\testDA\x64\Debug\testDA.exe

@@ -36,7 +36,7 @@ void textBgColor(int colorText, int colorBG)
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), (colorBG << 4) | colorText);
 }
 
-/*int whereX()
+int whereX()
 {
 	CONSOLE_SCREEN_BUFFER_INFO csbi;
 	if (GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &csbi))
@@ -51,5 +51,5 @@ int whereY()
 	if (GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &csbi))
 		return csbi.dwCursorPosition.Y;
 	return -1;
-}*/
+}
 

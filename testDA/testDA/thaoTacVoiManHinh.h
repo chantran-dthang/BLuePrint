@@ -7,9 +7,9 @@ using namespace std;
 void gotoxy(int x, int y);
 
 //Trả về tọa độ x của con trỏ vị trí hiện tại
-//int whereX();
+int whereX();
 //Trả về tọa độ y của con trỏ vị trí hiện tại
-//int whereY();
+int whereY();
 
 void textBgColor(int colorText, int colorBG);
 

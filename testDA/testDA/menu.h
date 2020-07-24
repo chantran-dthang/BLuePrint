@@ -10,8 +10,15 @@
 #include "conio.h"
 #include "stdlib.h"
 
-; void OpenMenu(int status);
+//Main Menu
+void OpenMenu(int status);
 void Menu(int Actions, const char numberAction[]);
-void MenuReaders(int numberActions, const char action[]);
 void choseAction();
+
+//ReadersMenu
+void MenuReaders(int numberActions, const char action[]);
 void choseReaderAction();
+
+//BooksMenu
+void MenuBooks(int numberActions, const char action[]);
+void choseBooksAction();
