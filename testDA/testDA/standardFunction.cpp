@@ -7,6 +7,7 @@
 #include "ctime"
 #include "thaoTacVoiManHinh.h"
 #include"ReaderActions.h"
+#include"RepayBooks.h"
 
 
 
@@ -38,6 +39,7 @@ char* toStr(long n)
 	strcat(S, str);
 	S[9] = '\0';
 	return S;
+
 }
 
 char* Path(const char s1[], char s2[], const char s3[])
@@ -94,9 +96,20 @@ tm* MakeEndDay(int Date, int Month, int Year, int NumMonth)
 void printAlert(int x, int y, int width, int height, int color, const char alert[])
 {
 	drawRectangle(x, y, width, height, color);
-	gotoxy(53, y + 1);
+	gotoxy2(53, y + 1, 10, 0);
 	printf("%s", alert);
 	Sleep(1500);
+}
+
+Day GetToday()
+{
+	time_t now = time(0);
+	tm* ltm = localtime(&now);
+	Day TODAY;
+	TODAY.Date = ltm->tm_mday;
+	TODAY.Month = ltm->tm_mon + 1;
+	TODAY.Year = ltm->tm_year + 1900;
+	return TODAY;
 }
 //========================= ACCOUNT ============================
 int GetAuthority()
@@ -151,7 +164,7 @@ int ReadCacheAccount(char user[], char pass[])
 	FILE* f = fopen("STOREZONE/account.txt", "r");
 	if (f)
 	{
-		fscanf(f, "%s", user);
+		fscanf(f, "%s%s", user, pass);
 		fclose(f);
 		return 1;
 	}
@@ -241,4 +254,97 @@ int WriteBook(char link[], Books book)
 		return 1;
 	}
 	return 0;
+}
+
+Day BorrDayTimeoutEx(int Date, int Month, int Year)
+{
+	tm created;
+	created.tm_mday = Date + BorrowedTimeoutExpired();
+	created.tm_mon = Month - 1;
+	created.tm_year = Year - 1900;
+	created.tm_hour = 0;
+	created.tm_isdst = 0;
+	created.tm_min = 0;
+	created.tm_sec = 0;
+	created.tm_wday = 0;
+	created.tm_yday = 0;
+	time_t endtime = mktime(&created);
+	tm* ended = localtime(&endtime);
+	Day Timeout;
+	Timeout.Date = ended->tm_mday;
+	Timeout.Month = ended->tm_mon + 1;
+	Timeout.Year = ended->tm_year + 1900;
+	return Timeout;
+}
+
+int BorrowedTimeoutExpired()
+{
+	FILE* f;
+	int n;
+	errno_t err = fopen_s(&f, "parameterSYSTEM/BorrowedDayTimeoutExpired.txt", "r");
+	if (err == 0)
+	{
+		fscanf(f, "%d", &n);
+		fclose(f);
+		return n;
+	}
+	else
+	{
+		err = fopen_s(&f, "parameterSYSTEM/BorrowedDayTimeoutExpired.txt", "w");
+		if (err == 0)
+		{
+			fprintf(f, "%d", 7);
+			fclose(f);
+		}
+		return 7;
+	}
+}
+
+//=============================REPAY=====================================
+void CreateBrBookList(char link[], char ListBook[][14], Day EndDay[], Day StartDay[])
+{
+	FILE* f;
+	f = fopen(link, "rb");
+	if (f)
+	{
+		int i = 0;
+		BorrowBook BB_2;
+		while (fread(&BB_2, sizeof(BorrowBook), 1, f) != 0)
+		{
+			strcpy(ListBook[i], BB_2.ISBN);
+			EndDay[i] = BB_2.EndDay;
+			StartDay[i] = BB_2.BorrowedDay;
+			i++;
+		}
+		fclose(f);
+	}
+	else return;
+}
+
+void DeleteBrBooks(Readers A, char link[], char ListBook[][14], Books b, Day EndDay[], Day StartDay[], int& posList)
+{
+	FILE* f;
+	f = fopen( link, "wb");
+	if (f)
+	{
+		bool Found = false;
+		BorrowBook ASD;
+		for (int i = 0; i < NumBookBorrowed(A.code); i++)
+		{
+			if (strcmp(b.ISBN, ListBook[i]) != 0 || Found)
+			{
+				strcpy(ASD.ISBN, ListBook[i]);
+				ASD.BorrowedDay = StartDay[i];
+				ASD.EndDay = EndDay[i];
+				fwrite(&ASD, sizeof(BorrowBook), 1, f);
+			}
+
+			if (strcmp(b.ISBN, ListBook[i]) == 0)
+			{
+				Found = true;
+				if (posList == -1) posList = i;
+			}
+		}
+		fclose(f);
+	}
 }

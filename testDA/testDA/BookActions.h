@@ -15,3 +15,5 @@ void FullBooksInfoID(int posX, int posY, int TextColor, int BgColor, int readerc
 void FieldModifyBook(List L, int fullheight);
 void ModifyBook(int code);
 void DeleteBook();
+void SearchBookISBN();
+void SearchBookName();

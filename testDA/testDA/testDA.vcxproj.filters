@@ -48,6 +48,15 @@
     <ClCompile Include="BookActions.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="BorrowedBooks.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="RepayBooks.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Statics.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="input.h">
@@ -81,6 +90,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="BookActions.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BorrowedBooks.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RepayBooks.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Statics.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

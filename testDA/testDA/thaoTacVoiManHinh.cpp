@@ -8,6 +8,15 @@ void gotoxy(int x, int y) {
 	SetConsoleCursorPosition(h, c);
 }
 
+void gotoxy2(int x, int y, int txt, int br)
+{
+	static HANDLE h = NULL;
+	if (!h)
+		h = GetStdHandle(STD_OUTPUT_HANDLE);
+	COORD c = { x, y };
+	SetConsoleCursorPosition(h, c);
+	textBgColor(txt, br);
+}
 void DrawAppNameTab(int TextColor, int BgColor)
 {
 	drawRectangle(51, 2, 27, 3, BgColor);

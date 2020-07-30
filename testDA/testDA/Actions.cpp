@@ -23,48 +23,49 @@ void CreateUser()
 	do
 	{
 		//Vẽ khung Background trang
-		drawRectangle(39, 6, 50, 23, 3);
+		drawRectangle(39, 6, 50, 23, 0);
 		//drawRectangle(39, 1, 50, 28, 15);
 		//Ghi các thuộc tính của trường nhập
-		gotoxy(41, 7);
+		gotoxy2(41, 7, 10, 0);
 		printf("USERNAME[21]: ");
-		gotoxy(41, 9);
+		 gotoxy2(41, 9, 10, 0);
 		printf("PASSWORD[21]: ");
-		gotoxy(41, 11);
+		 gotoxy2(41, 11, 10, 0);
 		printf("FULLNAME[44]: ");
-		gotoxy(41, 13);
+		gotoxy2(41, 13, 10, 0);
 		printf("DAY OF BIRTH: dd/mm/yyyy");
-		gotoxy(41, 15);
+		gotoxy2(41, 15, 10, 0);
 		printf("NUMBER OF IDENTICAL CARD[11]: ");
-		gotoxy(41, 17);
+		 gotoxy2(41, 17, 10, 0);
 		printf("ADDRESS[100]: ");
-		gotoxy(41, 19);
+		gotoxy2(41, 19, 10, 0);
 		printf("GENDER: 1->Male ; 2-> Female");
-		gotoxy(41, 21);
+		gotoxy2(41, 21, 10, 0);
 		printf("CLASSIFICATION: 1->Manager ; 2->Expert");
+		gotoxy(43, 14);
+		printf("/  /");
 		//Vẽ các trường nhập
-		drawRectangle(41, 8, 44, 1, 15);
+		/*drawRectangle(41, 8, 44, 1, 15);
 		drawRectangle(41, 10, 44, 1, 15);
 		drawRectangle(41, 12, 44, 1, 15);
 		drawRectangle(41, 14, 44, 1, 15);
-		gotoxy(43, 14);
-		printf("/  /");
+		
 		drawRectangle(41, 16, 44, 1, 15);
 		drawRectangle(41, 18, 44, 1, 15);
 		drawRectangle(41, 20, 44, 1, 15);
-		drawRectangle(41, 22, 44, 1, 15);
+		drawRectangle(41, 22, 44, 1, 15);*/
 		//Vẽ nút điều hướng
 		textBgColor(0, 7);
-		gotoxy(60, 24);
+		gotoxy2(60, 24, 10, 0);
 		printf("ENTER to Creat account");
-		gotoxy(60, 25);
+		gotoxy2(60, 25, 10, 0);
 		printf("F12 to Back");
 		textBgColor(0, 15);
 		//Nhập <USERNAME>
 		Accounts A;
 		do
 		{
-			gotoxy(41, 8);
+			gotoxy2(41, 8, 10 ,0);
 			int status = InputUser(A.username);
 			if (status == -1)
 			{
@@ -76,7 +77,7 @@ void CreateUser()
 		{
 			do
 			{
-				gotoxy(41, 10);
+				gotoxy2(41, 10, 10, 0);
 				int status = InputPass(A.password);
 				if (status == -1)
 				{
@@ -89,7 +90,7 @@ void CreateUser()
 		{
 			do
 			{
-				gotoxy(41, 12);
+				gotoxy2(41, 12, 10, 0);
 				int status = InputFullname(A.fullname);
 				if (status == -1)
 				{
@@ -101,7 +102,7 @@ void CreateUser()
 		if (!BACK)
 		{
 			do {
-				gotoxy(41, 14);
+				gotoxy2(41, 14, 10, 0);
 				A.DoB.Date = Input2Num();
 				if (A.DoB.Date == -1)
 				{
@@ -113,7 +114,7 @@ void CreateUser()
 		{
 			do
 			{
-				gotoxy(44, 14);
+				gotoxy2(44, 14, 10, 0);
 				A.DoB.Month = Input2Num();
 				if (A.DoB.Month == -1)
 				{
@@ -125,7 +126,7 @@ void CreateUser()
 		{
 			do
 			{
-				gotoxy(47, 14);
+				gotoxy2(47, 14, 10, 0);
 				A.DoB.Year = Input4Num();
 				if (A.DoB.Year == -1)
 				{
@@ -138,7 +139,7 @@ void CreateUser()
 		{
 			do
 			{
-				gotoxy(41, 16);
+				gotoxy2(41, 16, 10, 0);
 				int status = InputIndentity(A.ID);
 				if (status == -1)
 				{
@@ -151,7 +152,7 @@ void CreateUser()
 		{
 			do
 			{
-				gotoxy(41, 18);
+				gotoxy2(41, 18, 10, 0);
 				int status = InputAddress(A.address);
 				if (status == -1)
 				{
@@ -162,7 +163,7 @@ void CreateUser()
 		//Nhập Giới tính
 		if (!BACK)
 		{
-			gotoxy(41, 20);
+			gotoxy2(41, 20, 10, 0);
 			A.sex = Input1Num();
 			if (A.sex == -1)
 			{
@@ -172,7 +173,7 @@ void CreateUser()
 		//Nhập Phân quyền
 		if (!BACK)
 		{
-			gotoxy(41, 22);
+			gotoxy2(41, 22, 10, 0);
 			A.classification = Input1Num();
 			if (A.classification == -1)
 			{
@@ -189,21 +190,23 @@ void CreateUser()
 			if (AcceptUser(A.username))
 			{
 				AddAccount(A);
-				drawRectangle(42, 12, 46, 3, 10);
+				printAlert(42, 12, 46, 3, 0, "CREATE ACCOUNT SUCCESSFULL");
+				/*drawRectangle(42, 12, 46, 3, 10);
 				char Alert[100] = "CREATE ACCOUNT SUCCESSFULL";
 				gotoxy(53, 13);
 				printf("%s", Alert);
-				Sleep(1500);
+				Sleep(1500);*/
 			}
 			//Nếu username không khả dụng thì thông báo tài khoản đã được sử dụng
 			else
 			{
-				drawRectangle(42, 12, 46, 3, 12);
+				printAlert(42, 12, 46, 3, 0, "USER NAME IS AVAILABLE");
+				/*drawRectangle(42, 12, 46, 3, 12);
 				gotoxy(46, 13);
 				char Alert[100] = "USER NAME IS AVAILABLE";
 				gotoxy(53, 13);
 				printf("%s", Alert);
-				Sleep(2000);
+				Sleep(2000);*/
 			}
 		}
 		//Nếu đã ấn 'Trở về' [F12]
@@ -213,7 +216,7 @@ void CreateUser()
 			FILE *f = fopen("STOREZONE/menu.txt", "r");
 			fscanf(f, "%d %s", &actions, menu);
 			fclose(f);
-			drawRectangle(39, 6, 50, 23, 15);
+			drawRectangle(39, 6, 50, 23, 0);
 			Menu(actions, menu);
 			break;
 		}
@@ -321,12 +324,12 @@ void ModifyAccount()
 		Accounts A = GetAccountData(link);
 
 		//Vẽ khung nhập thông tin
-		drawRectangle(39, 6, 50, 21, 3);
+		drawRectangle(39, 6, 50, 21, 0);
 		//Ghi các thuộc tính của trường nhập và Thông tin của tài khoản hiện hành
 
-		gotoxy(41, 7);
+		gotoxy2(41, 7, 10, 0);
 		printf("FULLNAME[44]: ");
-		gotoxy(41, 8);
+		gotoxy2(41, 8, 10, 0);
 		if (strlen(A.fullname) > 0)
 		{
 			printf("%s", A.fullname);
@@ -335,13 +338,13 @@ void ModifyAccount()
 		{
 			printf("<NULL>");
 		}
-		gotoxy(41, 10);
+		gotoxy2(41, 10, 10 ,0);
 		printf("DAY OF BIRTH: ");
-		gotoxy(41, 11);
+		gotoxy2(41, 11, 10, 0);
 		printf("%02d/%02d/%02d", A.DoB.Date, A.DoB.Month, A.DoB.Year);
-		gotoxy(41, 13);
+		gotoxy2(41, 13, 10, 0);
 		printf("ID[44]: ");
-		gotoxy(41, 14);
+		gotoxy2(41, 14, 10,0);
 		if (strlen(A.ID) > 0)
 		{
 			printf("%s", A.ID);
@@ -350,9 +353,9 @@ void ModifyAccount()
 		{
 			printf("<NULL>");
 		}
-		gotoxy(41, 16);
+		gotoxy2(41, 16, 10, 0);
 		printf("ADDRESS[100]:");
-		gotoxy(41, 17);
+		gotoxy2(41, 17, 10, 0);
 		if (strlen(A.address) > 0)
 		{
 			printf("%s", A.address);
@@ -361,9 +364,9 @@ void ModifyAccount()
 		{
 			printf("<NULL>");
 		}
-		gotoxy(41, 19);
+		gotoxy2(41, 19, 10, 0);
 		printf("GENDER: 1->MALE ; 2-> FEMALE");
-		gotoxy(41, 20);
+		gotoxy2(41, 20, 10, 0);
 		if (A.sex == 1)
 		{
 			printf("Male");
@@ -380,26 +383,26 @@ void ModifyAccount()
 			}
 		}
 		//Vẽ khung input
-		drawRectangle(41, 9, 44, 1, 15);
-		drawRectangle(41, 12, 44, 1, 15);
-		gotoxy(42, 12);
+		drawRectangle(41, 9, 44, 1, 0);
+		drawRectangle(41, 12, 44, 1, 0);
+		gotoxy2(43, 12, 10,0);
 		printf("/  /");
-		drawRectangle(41, 15, 44, 1, 15);
-		drawRectangle(41, 18, 44, 1, 15);
-		drawRectangle(41, 21, 44, 1, 15);
+		/*drawRectangle(41, 15, 44, 1, 0);
+		drawRectangle(41, 18, 44, 1, 0);
+		drawRectangle(41, 21, 44, 1, 0);*/
 		//Vẽ nút điều hướng
-		textBgColor(0, 7);
-		gotoxy(62, 23);
+		//textBgColor(0, 7);
+		gotoxy2(62, 23, 10, 0);
 		printf("ENTER to Skip a step");
-		gotoxy(62, 24);
+		gotoxy2(62, 24, 10, 0);
 		printf("F12 to Back");
-		textBgColor(0, 15);
+		//textBgColor(0, 15);
 
 		Accounts B;
 		//Nhập Họ tên
 		if (!BACK)
 		{
-			gotoxy(41, 9);
+			gotoxy2(41, 9, 10, 0);
 			int status = InputFullname(B.fullname);
 			if (status == -1)
 			{
@@ -409,7 +412,7 @@ void ModifyAccount()
 		//Nhập Ngày sinh
 		if (!BACK)
 		{
-			gotoxy(41, 12);
+			gotoxy2(41, 12, 10, 0);
 			B.DoB.Date = Input2Num();
 			if (B.DoB.Date == -1)
 			{
@@ -418,7 +421,7 @@ void ModifyAccount()
 		}
 		if (!BACK)
 		{
-			gotoxy(44, 12);
+			gotoxy2(44, 12, 10, 0);
 			B.DoB.Month = Input2Num();
 			if (B.DoB.Month == -1)
 			{
@@ -427,7 +430,7 @@ void ModifyAccount()
 		}
 		if (!BACK)
 		{
-			gotoxy(47, 12);
+			gotoxy2(47, 12, 10, 0);
 			B.DoB.Year = Input4Num();
 			if (B.DoB.Year == -1)
 			{
@@ -437,7 +440,7 @@ void ModifyAccount()
 		//Nhập CMND
 		if (!BACK)
 		{
-			gotoxy(41, 15);
+			gotoxy2(41, 15, 10, 0);
 			int status = InputIndentity(B.ID);
 			if (status == -1)
 			{
@@ -447,7 +450,7 @@ void ModifyAccount()
 		//Nhập Địa chỉ
 		if (!BACK)
 		{
-			gotoxy(41, 18);
+			gotoxy2(41, 18, 10, 0);
 			int status = InputAddress(B.address);
 			if (status == -1)
 			{
@@ -457,7 +460,7 @@ void ModifyAccount()
 		//Nhập Giới tính
 		if (!BACK)
 		{
-			gotoxy(41, 21);
+			gotoxy2(41, 21, 10, 0);
 			B.sex = Input1Num();
 			if (B.sex == -1)
 			{
@@ -494,15 +497,16 @@ void ModifyAccount()
 			//Cập nhật dữ liệu
 			WriteAccount(link, A);
 			//Thông báo chỉnh sửa thành công
-			drawRectangle(39, 12, 48, 3, 10);
-			gotoxy(45, 13);
+			printAlert(39, 12, 48, 3, 0, "UPDATE SUCCESSFULLY");
+			/*drawRectangle(39, 12, 48, 3, 0);
+			gotoxy2(45, 13, 10, 0);
 			printf("UPDATE SUCCESSFULLY");
-			Sleep(1000);
+			Sleep(1000);*/
 		}
 		//Nếu đã bấm 'Trở về' thì quay về Main Menu
 		else
 		{
-			drawRectangle(39, 6, 50, 21, 15);
+			drawRectangle(39, 6, 50, 21, 0);
 			Menu(n, list);
 			break;
 		}
@@ -514,25 +518,25 @@ void ChangePassword()
 {
 	//Title(">>THAY DOI MAT KHAU");
 	//Vẽ khung
-	drawRectangle(36, 6, 48, 11, 3);
+	drawRectangle(36, 6, 48, 11, 0);
 	//In các tiêu đề của trường nhập
-	gotoxy(38, 7);
-	printf("Nhap lai mat khau cu: ");
-	gotoxy(38, 9);
-	printf("Nhap mat khau moi: ");
-	gotoxy(38, 11);
-	printf("Xac nhan mat khau moi: ");
+	gotoxy2(48, 7, 10, 0);
+	printf("Enter password: ");
+	gotoxy2(48, 9, 10, 0);
+	printf("Enter new password: ");
+	gotoxy2(48, 11, 10, 0);
+	printf("Confirm new password: ");
 	//Vẽ trường nhập
-	drawRectangle(38, 8, 44, 1, 15);
-	drawRectangle(38, 10, 44, 1, 15);
-	drawRectangle(38, 12, 44, 1, 15);
+	/*drawRectangle(38, 8, 44, 1, 0);
+	drawRectangle(38, 10, 44, 1, 0);
+	drawRectangle(38, 12, 44, 1, 15);*/
 	//Vẽ nút chức năng
-	textBgColor(0, 7);
-	gotoxy(58, 14);
+	//textBgColor(0, 7);
+	gotoxy2(58, 14, 10, 0);
 	printf("ENTER to Change Password");
-	gotoxy(58, 15);
+	gotoxy2(58, 15, 10, 0);
 	printf("F12 to Back");
-	textBgColor(0, 15);
+	//textBgColor(0, 15);
 
 	//Thực thi
 	bool BACK = false;
@@ -543,16 +547,16 @@ void ChangePassword()
 
 	do
 	{
-		drawRectangle(36, 9, 48, 3, 3);
-		gotoxy(38, 9);
-		printf("Nhap mat khau moi: ");
-		gotoxy(38, 11);
-		printf("Xac nhan mat khau moi: ");
-		drawRectangle(38, 8, 44, 1, 15);
+		drawRectangle(36, 9, 48, 3, 0);
+		gotoxy2(48, 9, 10, 0);
+		printf("Enter new password: ");
+		gotoxy2(48, 11, 10,0);
+		printf("Confirm new password: ");
+		/*drawRectangle(38, 8, 44, 1, 15);
 		drawRectangle(38, 10, 44, 1, 15);
-		drawRectangle(38, 12, 44, 1, 15);
+		drawRectangle(38, 12, 44, 1, 15);*/
 
-		gotoxy(38, 8);
+		gotoxy2(48, 8, 10, 0);
 		status = InputPass(currentPassword);
 		if (status == -1)
 		{
@@ -561,10 +565,11 @@ void ChangePassword()
 		if (!BACK) {
 			if (strcmp(currentPassword, pass) != 0)
 			{
-				drawRectangle(36, 9, 48, 3, 12);
+				printAlert(36, 9, 48, 3, 10, "INCORRECT PASSWORD");
+				/*drawRectangle(36, 9, 48, 3, 10);
 				gotoxy(51, 10);
 				printf("NHAP SAI MAT KHAU");
-				Sleep(1000);
+				Sleep(1000);*/
 			}
 		}
 		else
@@ -572,7 +577,7 @@ void ChangePassword()
 			int n;
 			char list[11];
 			ReadMenuData(n, list);
-			drawRectangle(36, 6, 48, 11, 15);
+			drawRectangle(36, 6, 48, 11, 0);
 			Menu(n, list);
 			break;
 		}
@@ -582,18 +587,18 @@ void ChangePassword()
 	{
 		do
 		{
-			drawRectangle(36, 9, 48, 3, 3);
-			gotoxy(38, 9);
-			printf("Nhap mat khau moi: ");
-			gotoxy(38, 11);
-			printf("Xac nhan mat khau moi: ");
+			drawRectangle(36, 9, 48, 3, 0);
+			gotoxy2(48, 9, 10, 0);
+			printf("Enter new password: ");
+			gotoxy2(48, 11, 10, 0);
+			printf("Confirm new password: ");
 
-			drawRectangle(38, 10, 44, 1, 15);
-			drawRectangle(38, 12, 44, 1, 15);
+			/*drawRectangle(38, 10, 44, 1, 15);
+			drawRectangle(38, 12, 44, 1, 15);*/
 
 			if (!BACK)
 			{
-				gotoxy(38, 10);
+				gotoxy2(48, 10, 10, 0);
 				status = InputPass(newPassword);
 				if (status == -1)
 				{
@@ -602,7 +607,7 @@ void ChangePassword()
 			}
 			if (!BACK)
 			{
-				gotoxy(38, 12);
+				gotoxy2(48, 12, 10, 0);
 				status = InputPass(confirmPassword);
 				if (status == -1)
 				{
@@ -613,10 +618,11 @@ void ChangePassword()
 			{
 				if (strcmp(newPassword, confirmPassword) != 0)
 				{
-					drawRectangle(36, 9, 48, 3, 12);
+					printAlert(36, 9, 48, 3, 0, "INCORRECT PASSWORD");
+					/*drawRectangle(36, 9, 48, 3, 12);
 					gotoxy(46, 10);
 					printf("MAT KHAU XAC NHAN KHONG DUNG");
-					Sleep(1000);
+					Sleep(1000);*/
 				}
 				else
 				{
@@ -648,16 +654,16 @@ void ChangePassword()
 						fclose(f);
 					}
 
-
-					drawRectangle(36, 9, 48, 3, 10);
+					printAlert(46, 9, 44, 3, 0, "CHANGED PASSWORD SUCCESSFULLY");
+					/*drawRectangle(36, 9, 48, 3, 10);
 					gotoxy(46, 10);
 					printf("THAY DOI MAT KHAU THANH CONG");
-					Sleep(1000);
+					Sleep(1000);*/
 
 					int n;
 					char list[11];
 					ReadMenuData(n, list);
-					drawRectangle(36, 6, 48, 11, 15);
+					drawRectangle(39, 6, 48, 11, 0);
 					Menu(n, list);
 					break;
 				}

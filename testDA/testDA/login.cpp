@@ -72,7 +72,7 @@ void Login(char user[], char pass[])
 		status= StatusLogin(user, pass);
 		if (status == -1)
 		{
-			printAlert(48, 9, 33, 2, 12, "XXXX LOGIN FAILED XXXX");
+			printAlert(48, 9, 33, 2, 0, "XXXX LOGIN FAILED XXXX");
 			/*drawRectangle(48, 9, 33, 2, 12);
 			gotoxy(53, 10);
 			printf("XXXX LOGIN FAILED XXXX");
@@ -83,7 +83,7 @@ void Login(char user[], char pass[])
 	fprintf(f1, "%d", status);
 	fclose(f1);
 	FILE* f2 = fopen("STOREZONE/account.txt", "w");
-	fprintf(f2, "%s", user);
+	fprintf(f2, "%s %s", user, pass);
 	fclose(f2);
 	OpenMenu(status);
 }

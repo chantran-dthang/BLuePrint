@@ -42,73 +42,33 @@ void AddBooks()
 	do
 	{
 		//Vẽ khung đăng nhập
-		drawRectangle(39, 6, 50, 21, 3);
+		drawRectangle(39, 6, 50, 10, 0);
 		//Ghi các thuộc tính của trường nhập
-		gotoxy(41, 7);
+		gotoxy2(41, 7, 10,0);
 		printf("ISBN[44]: ");
-		gotoxy(41, 9);
+		gotoxy2(41, 9, 10, 0);
 		printf("BOOK NAME[11]: ");
-		gotoxy(41, 11);
+		gotoxy2(41, 11, 10, 0);
 		printf("AUTHOR NAME[100]:");
-		gotoxy(41, 13);
+		gotoxy2(41, 13, 10, 0);
 		printf("PUBLISHER[100]: ");
-		gotoxy(41, 15);
+		gotoxy2(41, 15, 10, 0);
 		printf("PUBLISHED YEAR:");
-		gotoxy(41, 17);
+		gotoxy2(41, 17, 10, 0);
 		printf("TYPE OF BOOK: ");
-		gotoxy(41, 19);
+		gotoxy2(41, 19, 10, 0);
 		printf("BOOK SHELF:");
-		gotoxy(41, 21);
+		gotoxy2(41, 21, 10, 0);
 		printf("QUANTITY OF BOOK:");
-		//Vẽ các trường nhập
-		drawRectangle(41, 8, 44, 1, 15);
-		drawRectangle(41, 10, 44, 1, 15);
-		drawRectangle(41, 12, 44, 1, 15);
-		drawRectangle(41, 14, 44, 1, 15);
-		drawRectangle(41, 16, 44, 1, 15);
-		drawRectangle(41, 18, 44, 1, 15);
-		drawRectangle(41, 20, 44, 1, 15);
-		drawRectangle(41, 22, 44, 1, 15);
+		gotoxy2(41, 23, 10, 0);
+		printf("PRICE OF BOOK:");
 
-
-		//Vẽ nút điều hướng
-		textBgColor(0, 7);
-		gotoxy(61, 26);
-		printf("ENTER to Add a book");
-		gotoxy(61, 27);
-		printf("F12 to Back");
-		textBgColor(0, 15);
-
-		
 		Books A;
-		/*f = fopen("BOOKS/List.bin", "rb");
-		if (!f)
-		{
-			code = 1;
-		}
-		else
-		{
-			fread(&code, sizeof(long), 1, f);
-			fclose(f);
-			code++;
-		}*/
-
-
-
-		//Nhập
-		//Nhập ISBN
-	/*	if (!BACK)
-		{
-			
-		}*/
 		do
 		{
-			gotoxy(41, 8);
+			gotoxy2(41, 8, 10, 0);
 			int status = InputISBN2(A.ISBN);
-			if (status == -1)
-			{
-				BACK = true;
-			}
+			if (status == -1) BACK = true;
 		} while (strlen(A.ISBN) == 0 && !BACK);
 
 		//Nhập ten sach
@@ -116,12 +76,9 @@ void AddBooks()
 		{
 			do
 			{
-				gotoxy(41, 10);
+				gotoxy2(41, 10, 10, 0);
 				int status = InputString100(A.name);
-				if (status == -1)
-				{
-					BACK = true;
-				}
+				if (status == -1) BACK = true;
 			} while (strlen(A.name) == 0 && !BACK);
 		}
 		//Nhập ten tac gia
@@ -129,12 +86,9 @@ void AddBooks()
 		{
 			do
 			{
-				gotoxy(41, 12);
+				gotoxy2(41, 12, 10, 0);
 				int status = InputFullname(A.author);
-				if (status == -1)
-				{
-					BACK = true;
-				}
+				if (status == -1) BACK = true;
 			} while (strlen(A.author) == 0 && !BACK);
 			
 		}
@@ -143,12 +97,9 @@ void AddBooks()
 		{
 			do
 			{
-				gotoxy(41, 14);
+				gotoxy2(41, 14, 10, 0);
 				int status = InputFullname(A.publisher);
-				if (status == -1)
-				{
-					BACK = true;
-				}
+				if (status == -1) BACK = true;
 			} while (strlen(A.publisher) == 0 && !BACK);
 			
 		}
@@ -157,12 +108,9 @@ void AddBooks()
 		{
 			do
 			{
-				gotoxy(45, 16);
+				gotoxy2(41, 16, 10, 0);
 				A.published = Input4Num();
-				if (A.published == -1)
-				{
-					BACK = true;
-				}
+				if (A.published == -1) BACK = true;
 			} while (A.published == 0 && !BACK);
 		}
 		//Nhập the loai sach
@@ -170,12 +118,9 @@ void AddBooks()
 		{
 			do
 			{
-				gotoxy(41, 18);
+				gotoxy2(41, 18, 10, 0);
 				int status = InputFullname(A.category);
-				if (status == -1)
-				{
-					BACK = true;
-				}
+				if (status == -1)BACK = true;
 			} while (strlen(A.category) == 0 && !BACK);
 		}
 		//Nhap so ke sach
@@ -183,12 +128,9 @@ void AddBooks()
 		{
 			do
 			{
-				gotoxy(41, 20);
+				gotoxy2(41, 20, 10, 0);
 				int status = InputAddress(A.bookshelf);
-				if (status == -1)
-				{
-					BACK = true;
-				}
+				if (status == -1) BACK = true;
 			} while (strlen(A.category) == 0 && !BACK);
 		}
 		//Nhap so luong sach
@@ -196,13 +138,19 @@ void AddBooks()
 		{
 			do
 			{
-				gotoxy(45, 22);
+				gotoxy2(41, 22, 10, 0);
 				A.quantity = Input4Num();
-				if (A.published == -1)
-				{
-					BACK = true;
-				}
+				if (A.published == -1) BACK = true;
 			} while (A.published == 0 && !BACK);
+		}
+		if (!BACK)
+		{
+			do
+			{
+				gotoxy2(41, 24, 10, 0);
+				A.prices = Input9Num();
+				if (A.prices == -1) BACK = true;
+			} while (A.prices == 0 && !BACK);
 		}
 		int n;
 		char list[11];
@@ -211,21 +159,6 @@ void AddBooks()
 		//Nếu chưa ấn 'Trở về' [F12]
 		if (!BACK)
 		{
-			/*char link[128];
-			strcpy(link, Path("BOOKS/", A.ISBN, ".bin"));
-			f = fopen(link, "wb");
-			if (f)
-			{
-				fwrite(&A, sizeof(Books), 1, f);
-				fclose(f);
-			}
-			f = fopen("BOOKS/List.bin", "wb");
-			if (f)
-			{
-				fwrite(&A.ISBN, sizeof(A.ISBN), 1, f);
-				fclose(f);
-			}*/
-
 			//StoreInfoReader(A);
 			//Tạo biến link chứa giá trị đường dẫn đến file dữ liệu sách
 			char link[100] = "books/";
@@ -279,13 +212,13 @@ void AddBooks()
 					}
 				}
 			}
-			printAlert(42, 12, 46, 3, 10, "CREATE BOOKS SUCCESSFULL");
+			printAlert(42, 12, 46, 3, 0, "CREATE BOOKS SUCCESSFULL");
 
 		}
 		//Nếu đã ấn 'Trở về' [F12kj=o][]
 		else
 		{
-			drawRectangle(39, 6, 50, 22, 15);
+			drawRectangle(39, 6, 50, 22, 0);
 			MenuBooks(n, list);
 			break;
 		}
@@ -326,20 +259,13 @@ List CreateBookList()
 
 void ViewBookList(List L, int fullheight)
 {
-	drawRectangle(39, 6, 50, 23, 24);
-	drawRectangle(39, 6, 50, 1, 1);
+	drawRectangle(39, 6, 50, 23, 0);
+	drawRectangle(39, 6, 50, 1, 0);
 	textBgColor(15, 1);
-	gotoxy(42, 6); printf("ISBN");
-	gotoxy(59, 6); printf("BOOK NAME");
-	gotoxy(76, 6); printf("PUBLISHER");
-	//VerticalLine(48, CurrentLine, 1, 15, 1);
-	//VerticalLine(69, CurrentLine, 1, 15, 1);
+	gotoxy2(42, 6, 10, 0); printf("ISBN");
+	gotoxy2(59, 6, 10, 0); printf("BOOK NAME");
+	gotoxy2(76, 6, 10, 0); printf("PUBLISHER");
 
-	/*drawRectangle(36, CurrentLine + 1, 48, fullHeight - 1, 3);
-	VerticalLine(48, CurrentLine + 1, fullHeight - 1, 15, 3);
-	VerticalLine(69, CurrentLine + 1, fullHeight - 1, 15, 3);*/
-
-	textBgColor(14, 24);
 	Node* p = L.pHead;
 
 	//int NumMonth = ReadNumMonth();
@@ -347,22 +273,22 @@ void ViewBookList(List L, int fullheight)
 	for (int i = 0; i < fullheight - 1; i++)
 	{
 		if (p == NULL) break;
-		gotoxy(42, 6 + 1 + i); printf("%s", p->Data.ISBN);
+		gotoxy2(42, 6 + 1 + i,10, 0); printf("%s", p->Data.ISBN);
 		if (strlen(p->Data.name) <= 20)
 		{
-			gotoxy(54, 6 + 1 + i);
+			gotoxy2(54, 6 + 1 + i, 10, 0);
 			printf("%s", p->Data.name);
 		}
 		else
 		{
-			gotoxy(54, 6 + 1 + i);
+			gotoxy2(54, 6 + 1 + i, 10 ,0);
 			char fullname[18];
 			fullname[17] = '\0';
 			strncpy(fullname, p->Data.name, 17);
 			printf("%s", fullname);
 			printf("...");
 		}
-		gotoxy(76, 6 + 1 + i);
+		gotoxy2(76, 6 + 1 + i, 10, 0);
 		cout << p->Data.publisher;
 		count++;
 		p = p->pNext;
@@ -370,15 +296,15 @@ void ViewBookList(List L, int fullheight)
 	}
 	if (count > 10)
 	{
-		gotoxy(42, fullheight + 6);  cout << "...";
-		gotoxy(54, fullheight + 6); cout << "...";
-		gotoxy(76, fullheight + 6); cout << "...";
+		gotoxy2(42, fullheight + 6, 10 ,0);  cout << "...";
+		gotoxy2(54, fullheight + 6, 10, 0); cout << "...";
+		gotoxy2(76, fullheight + 6, 10, 0); cout << "...";
 
 	}
-	drawRectangle(41, 25, 46, 2, 15);
-	gotoxy(41, 26);
+	drawRectangle(41, 25, 46, 2, 0);
+	gotoxy2(41, 26, 10, 0);
 	cout << "(Press number 0 to exit)";
-	gotoxy(41, 25);
+	gotoxy2(41, 25, 10, 0);
 	cout << "Enter reader code to get more information:";
 	int code = Input9Num();
 	FullBooksInfoID(3, 6, 42, 0, code);
@@ -386,9 +312,9 @@ void ViewBookList(List L, int fullheight)
 
 void FullBooksInfoID(int posX, int posY, int TextColor, int BgColor, int ISBN)
 {
-	if (ISBN == 0)
+	if (ISBN == 0||ISBN == -1)
 	{
-		drawRectangle(39, 6, 50, 23, 15);
+		drawRectangle(39, 6, 50, 23, 0);
 		int n;
 		char list[9];
 		ReadBooksMenuData(n, list);
@@ -404,33 +330,35 @@ void FullBooksInfoID(int posX, int posY, int TextColor, int BgColor, int ISBN)
 		FILE* f = fopen(link, "rb");
 		if (f)
 		{
-			drawRectangle(2, 5, 35, 11, 15);
+			drawRectangle(2, 5, 35, 11, 0);
 			Books book;
 			fread(&book, sizeof(Books), 1, f);
 			drawRectangle(posX, posY, 33, 9, BgColor);
 			textBgColor(TextColor, BgColor);
-			gotoxy(posX, posY);
+			gotoxy2(posX, posY, 10, 0);
 			printf("- ISBN: %s", book.ISBN);
-			gotoxy(posX, posY + 1);
+			gotoxy2(posX, posY +1, 10, 0);
 			printf("- Book name %s", book.name);
-			gotoxy(posX, posY + 2);
+			gotoxy2(posX, posY+2, 10, 0);
 			printf("- Author: %s", book.author);
-			gotoxy(posX, posY + 3);
+			gotoxy2(posX, posY+3, 10, 0);
 			printf("- Publisher: %s", book.publisher);
-			gotoxy(posX, posY + 4);
+			gotoxy2(posX, posY+4, 10, 0);
 			printf("- Published: %04d ", book.published);
-			gotoxy(posX, posY + 5);
+			gotoxy2(posX, posY+5, 10, 0);
 			printf("- Book type: %s", book.category);
-			gotoxy(posX, posY + 6);
+			gotoxy2(posX, posY+6, 10, 0);
 			printf("- Shelf: %s", book.bookshelf);
-			gotoxy(posX, posY + 7);
+			gotoxy2(posX, posY+7, 10, 0);
 			printf("- Quantity: %d", book.quantity);
+			gotoxy2(posX, posY + 8, 10, 0);
+			printf("- Price: %d", book.prices);
 			List L = CreateBookList();
 			ViewBookList(L, 10);
 		}
 		else
 		{
-			printAlert(41, 9, 3, 46, 12, "READER NOT AVAILABLE");
+			printAlert(41, 9, 3, 46, 0, "READER NOT AVAILABLE");
 			List L = CreateBookList();
 			ViewBookList(L, 10);
 		}
@@ -441,43 +369,36 @@ void FullBooksInfoID(int posX, int posY, int TextColor, int BgColor, int ISBN)
 
 void FieldModifyBook(List L, int fullheight)////chua xong : van dang la framework cua ModifyAccount
 {
-	drawRectangle(39, 6, 50, 23, 24);
-	drawRectangle(39, 6, 50, 1, 1);
+	drawRectangle(39, 6, 50, 23, 0);
+	drawRectangle(39, 6, 50, 1, 0);
 	textBgColor(15, 1);
-	gotoxy(42, 6); printf("ISBN");
-	gotoxy(59, 6); printf("BOOK NAME");
-	gotoxy(76, 6); printf("PUBLISHER");
-	//VerticalLine(48, CurrentLine, 1, 15, 1);
-	//VerticalLine(69, CurrentLine, 1, 15, 1);
+	gotoxy2(42, 6, 10,0); printf("ISBN");
+	gotoxy2(59, 6, 10, 0); printf("BOOK NAME");
+	gotoxy2(76, 6, 10, 0); printf("PUBLISHER");
 
-	/*drawRectangle(36, CurrentLine + 1, 48, fullHeight - 1, 3);
-	VerticalLine(48, CurrentLine + 1, fullHeight - 1, 15, 3);
-	VerticalLine(69, CurrentLine + 1, fullHeight - 1, 15, 3);*/
 
-	textBgColor(14, 24);
 	Node* p = L.pHead;
 
-	//int NumMonth = ReadNumMonth();
 	int count = 0;
 	for (int i = 0; i < fullheight - 1; i++)
 	{
 		if (p == NULL) break;
-		gotoxy(42, 6 + 1 + i); printf("%s", p->Data.ISBN);
+		gotoxy2(42, 6 + 1 + i, 10, 0); printf("%s", p->Data.ISBN);
 		if (strlen(p->Data.name) <= 20)
 		{
-			gotoxy(54, 6 + 1 + i);
+			gotoxy2(54, 6 + 1 + i, 10,0);
 			printf("%s", p->Data.name);
 		}
 		else
 		{
-			gotoxy(54, 6 + 1 + i);
+			gotoxy2(54, 6 + 1 + i, 10,0);
 			char fullname[18];
 			fullname[17] = '\0';
 			strncpy(fullname, p->Data.name, 17);
 			printf("%s", fullname);
 			printf("...");
 		}
-		gotoxy(76, 6 + 1 + i);
+		gotoxy2(76, 6 + 1 + i, 10, 0);
 		cout << p->Data.publisher;
 		count++;
 		p = p->pNext;
@@ -485,15 +406,15 @@ void FieldModifyBook(List L, int fullheight)////chua xong : van dang la framewor
 	}
 	if (count > 10)
 	{
-		gotoxy(42, fullheight + 6);  cout << "...";
-		gotoxy(54, fullheight + 6); cout << "...";
-		gotoxy(76, fullheight + 6); cout << "...";
+		gotoxy2(42, fullheight + 6, 10, 0);  cout << "...";
+		gotoxy2(54, fullheight + 6, 10, 0); cout << "...";
+		gotoxy2(76, fullheight + 6, 10, 0); cout << "...";
 
 	}
-	drawRectangle(41, 25, 46, 2, 15);
-	gotoxy(41, 26);
+	drawRectangle(41, 25, 46, 2, 0);
+	gotoxy2(41, 26, 10, 0);
 	cout << "(Press number 0 to exit)";
-	gotoxy(41, 25);
+	gotoxy2(41, 25, 10 ,0);
 	cout << "Enter reader code to get more information:";
 	int code = Input9Num();
 	ModifyBook(code);
@@ -502,9 +423,9 @@ void FieldModifyBook(List L, int fullheight)////chua xong : van dang la framewor
 void ModifyBook(int code)
 {
 	bool BACK = false;
-	if (code == 0)
+	if (code == 0||code==-1)
 	{
-		drawRectangle(39, 6, 50, 23, 15);
+		drawRectangle(39, 6, 50, 23, 0);
 		int n;
 		char list[11];
 		ReadMenuData(n, list);
@@ -523,16 +444,15 @@ void ModifyBook(int code)
 		{
 			int n;
 			char list[11];
-			//char user[21], pass[21];
 			ReadBooksMenuData(n, list);
 
 			//Vẽ khung nhập thông tin
-			drawRectangle(39, 6, 50, 21, 3);
+			drawRectangle(39, 6, 50, 23, 0);
 			//Ghi các thuộc tính của trường nhập và Thông tin của tài khoản hiện hành
 
-			gotoxy(41, 7);
+			gotoxy2(41, 7,10,0);
 			printf("NAME[44]: ");
-			gotoxy(41, 8);
+			gotoxy2(41, 8, 10, 0);
 			if (strlen(A.name) > 0)
 			{
 				printf("%s", A.name);
@@ -541,9 +461,9 @@ void ModifyBook(int code)
 			{
 				printf("<NULL>");
 			}
-			gotoxy(41, 10);
+			gotoxy2(41, 10, 10, 0);
 			printf("AUTHOR: ");
-			gotoxy(41, 11);
+			gotoxy2(41, 11, 10, 0);
 			if (strlen(A.author) > 0)
 			{
 				printf("%s", A.author);
@@ -554,136 +474,87 @@ void ModifyBook(int code)
 			}
 			
 			//
-			gotoxy(41, 13);
+			gotoxy2(41, 13, 10, 0);
 			printf("PUBLISHER: ");
-			gotoxy(41, 14);
-			if (strlen(A.publisher) > 0)
-			{
-				printf("%s", A.publisher);
-			}
-			else
-			{
-				printf("<NULL>");
-			}
-			gotoxy(41, 16);
+
+			gotoxy2(41, 14, 10, 0);
+			if (strlen(A.publisher) > 0)printf("%s", A.publisher);
+			else printf("<NULL>");
+			
+			gotoxy2(41, 16, 10, 0);
 			printf("PUBLISHED:");
-			gotoxy(41, 17);
-			if (A.published > 0)
-			{
-				printf("%04d", A.published);
-			}
-			else
-			{
-				printf("<NULL>");
-			}
-			gotoxy(41, 19);
+
+			gotoxy2(41, 17, 10, 0);
+			if (A.published > 0) printf("%04d", A.published);
+			else printf("<NULL>");
+			
+			gotoxy2(41, 19, 10, 0);
 			printf("TYPE: ");
-			gotoxy(41, 20);
-			if (strlen(A.category) > 0)
-			{
-				printf("%s", A.category);
-			}
-			else
-			{
-				printf("<NULL>");
-			}
-			gotoxy(41, 22);
+			gotoxy2(41, 20, 10, 0);
+
+			if (strlen(A.category) > 0) printf("%s", A.category);
+			else printf("<NULL>");
+		
+			gotoxy2(41, 22, 10, 0);
 			printf("SHELF: ");
-			gotoxy(41, 23);
-			if (strlen(A.bookshelf) > 0)
-			{
-				printf("%s", A.bookshelf);
-			}
-			else
-			{
-				printf("Non Defined");
-			}
-			gotoxy(41, 25);
-			printf("QUANTITY: ");
-			gotoxy(41, 26);
-			if (A.quantity > 0)
-			{
-				printf("%d", A.quantity);
-			}
-			else
-			{
-				printf(0);
-			}
-			//Vẽ khung input
-			drawRectangle(41, 9, 44, 1, 15);
-			drawRectangle(41, 12, 44, 1, 15);
-			drawRectangle(41, 15, 44, 1, 15);
-			drawRectangle(41, 18, 44, 1, 15);
-			drawRectangle(41, 21, 44, 1, 15);
-			drawRectangle(41, 24, 44, 1, 15);
-			drawRectangle(41, 27, 44, 1, 15);
-			//Vẽ nút điều hướng
-			textBgColor(0, 7);
-			gotoxy(62, 23);
-			printf("ENTER to Skip a step");
-			gotoxy(62, 24);
-			printf("F12 to Back");
-			textBgColor(0, 15);
+
+			gotoxy2(41, 23, 10, 0);
+			if (strlen(A.bookshelf) > 0) printf("%s", A.bookshelf);
+			else printf("Non Defined");
+			
+			gotoxy2(41, 25, 10, 0); printf("QUANTITY: ");
+
+			gotoxy2(41, 26, 10, 0);
+			if (A.quantity > 0) printf("%d", A.quantity);
+			else printf("%d", 0);
 
 			Books B;
 			//Nhập  tên
 			if (!BACK)
 			{
-				gotoxy(41, 9);
+				gotoxy2(41, 9, 10, 0);
 				int status = InputFullname(B.name);
-				if (status == -1)
-				{
-					BACK = true;
-				}
+				if (status == -1) BACK = true;
 			}
 			//Nhập tac gia
 			if (!BACK)
 			{
-				gotoxy(41, 12);
+				gotoxy2(41, 12, 10, 0);
 				int status = InputFullname(B.author);
-				if (status == -1)
-				{
-					BACK = true;
-				}
+				if (status == -1) BACK = true;
 			}
 			//Nhập nha xuat ban
 			if (!BACK)
 			{
-				gotoxy(41, 15);
+				gotoxy2(41, 15, 10, 0);
 				int status = InputString100(B.publisher);
-				if (status == -1)
-				{
-					BACK = true;
-				}
+				if (status == -1) BACK = true;
 			}
 			//Nhập nam xuat ban
 			if (!BACK)
 			{
-				gotoxy(41, 18);
+				gotoxy2(41, 18, 10, 0);
 				B.published = Input4Num();
-				if (B.published == -1)
-				{
-					BACK = true;
-				}
+				if (B.published == -1) BACK = true;
 			}
 			//Nhập loai sach
 			if (!BACK)
 			{
-				gotoxy(41, 21);
+				gotoxy2(41, 21, 10, 0);
 				int status = InputFullname(B.category);
-				if (status == -1)
-				{
-					BACK = true;
-				}
+				if (status == -1) BACK = true;
 			}
 			if (!BACK)
 			{
-				gotoxy(41, 24);
+				gotoxy2(41, 24, 10, 0);
+				int status = InputString100(B.bookshelf);
+				if (status == -1) BACK = true;
+			}
+			if (!BACK)
+			{
+				gotoxy2(41, 27, 10, 0);
 				B.quantity = Input4Num();
-				if (B.quantity == -1)
-				{
-					BACK = true;
-				}
+				if (B.quantity == -1) BACK = true;
 			}
 			//Nếu chưa bấm 'Trở về' thì Xử lý
 			if (!BACK)
@@ -721,15 +592,12 @@ void ModifyBook(int code)
 				//Cập nhật dữ liệu
 				WriteBook(link, A);
 				//Thông báo chỉnh sửa thành công
-				drawRectangle(39, 12, 48, 3, 10);
-				gotoxy(45, 13);
-				printf("UPDATE SUCCESSFULLY");
-				Sleep(1000);
+				printAlert(39, 12, 50, 3, 0, "UPDATE SUCCESSFULLY");
 			}
 			//Nếu đã bấm 'Trở về' thì quay về Main Menu
 			else
 			{
-				drawRectangle(39, 6, 50, 21, 15);
+				drawRectangle(39, 6, 50, 23, 0);
 				MenuBooks(n, list);
 				break;
 			}
@@ -739,26 +607,24 @@ void ModifyBook(int code)
 void DeleteBook()
 {
 	bool BACK = false;
-	drawRectangle(41, 6, 48, 7, 3);
+	drawRectangle(41, 6, 50, 7, 0);
 	gotoxy(41, 7);
-	printf("Nhap ma doc gia sach can xoa: ");
-	drawRectangle(41, 8, 44, 1, 15);
+	printf("Enter ISBN to delete: ");
+	drawRectangle(41, 8, 44, 1, 0);
 	Books A;
 
 	//Nhập ISBN
 	do
 	{
-		drawRectangle(41, 9, 48, 3, 3);
-		drawRectangle(41, 8, 44, 1, 15);
+		drawRectangle(41, 9, 48, 3, 0);
+		drawRectangle(41, 8, 44, 1, 0);
 		//Vẽ nút điều hướng
-		textBgColor(0, 7);
-		gotoxy(58, 10);
-		printf("ENTER to Delete a reader");
-		gotoxy(58, 11);
+		gotoxy2(58, 10,10 ,0);
+		printf("ENTER to Delete book");
+		gotoxy2(58, 11, 10, 0);
 		printf("F12 to Back");
-		textBgColor(0, 15);
 
-		gotoxy(41, 8);
+		gotoxy2(41, 8, 10, 0);
 		int ISBN = Input9Num();
 		if (ISBN == -1)
 		{
@@ -783,7 +649,7 @@ void DeleteBook()
 			int n;
 			char list[10];
 			ReadBooksMenuData(n, list);
-			drawRectangle(36, 6, 48, 7, 15);
+			drawRectangle(36, 6, 48, 7, 0);
 			MenuBooks(n, list);
 			break;
 		}
@@ -794,71 +660,51 @@ void DeleteBook()
 void SearchBookISBN()
 {
 	bool BACK = false;
-	Title(">>TIM KIEM SACH THEO ISBN");
-	drawRectangle(36, 6, 48, 7, 3);
-	gotoxy(38, 7);
-	printf("Nhap ISBN: ");
-	drawRectangle(38, 8, 44, 1, 15);
+	drawRectangle(39, 6, 50, 23, 0);
+	drawRectangle(39, 6, 50, 7, 0);
+	gotoxy2(43, 8, 10,0);
+	printf("Enter ISBN: ");
+	//drawRectangle(43, 8, 36, 1, 0);
 	Books A;
-	errno_t err;
 
-	//Nhập ISBN
+	//Nhập CMND
 	do
 	{
-		drawRectangle(36, 9, 48, 3, 3);
-		drawRectangle(38, 8, 44, 1, 15);
+		drawRectangle(41, 9, 44, 3, 0);
+		drawRectangle(43, 8, 40, 1, 0);
 		//Vẽ nút điều hướng
-		textBgColor(0, 7);
-		gotoxy(60, 10);
-		printf("ENTER to Search a book");
-		gotoxy(60, 11);
+		gotoxy2(58, 10, 10, 0);
+		printf("ENTER to Search book");
+		gotoxy2(58, 11, 10, 0);
 		printf("F12 to Back");
-		textBgColor(0, 15);
 
-		gotoxy(38, 8);
-		int status = InputISBN(A.ISBN);
+		gotoxy2(41, 8, 10, 0);
+		int status = InputISBN2(A.ISBN);
 		if (status == -1)
 		{
 			BACK = true;
 		}
+
 		//Nếu chưa bấm 'Trở về' thì Xử lý dữ liệu
 		if (!BACK)
 		{
-			char link[128];
-			strcpy(link, Path("books/", A.ISBN, ".bin"));
-			FILE* f;
-			err = fopen_s(&f, link, "rb");
-			//Nếu sách tồn tại trước đó
-			if (err == 0)
+			List L = CreateBookList();
+			List L2;
+			Init(L2);
+			Node* p;
+			for (p = L.pTail; p != NULL; p = p->pPrev)
 			{
-				Books book;
-				fread(&book, sizeof(Books), 1, f);
-				fclose(f);
-
-				//Nếu sách chưa bị xóa
-				if (book.exist)
+				if (strcmp(p->Data.ISBN, A.ISBN) == 0)
 				{
-					FullBooksInfoISBN(0, 18, 0, 15, book);
-				}
-				//Nếu sách đã bị xóa
-				else
-				{
-					//In thông báo
-					drawRectangle(36, 9, 48, 3, 12);
-					gotoxy(51, 10);
-					printf("SACH KHONG TON TAI");
-					Sleep(1000);
+					Insert_first(L2, p->Data);
 				}
 			}
-			//Nếu sách chưa tồn tại trước đó
-			else
+			if (Len(L2) > 0)
 			{
-				//In thông báo
-				drawRectangle(36, 9, 48, 3, 12);
-				gotoxy(51, 10);
-				printf("SACH KHONG TON TAI");
-				Sleep(1000);
+				ViewBookList(L2, 10);
+				break;
 			}
+			else printAlert(44, 9, 40, 3, 12, "BOOK NOT AVAILABLE");
 		}
 		//Nếu bấm 'Trở về'
 		else
@@ -866,10 +712,75 @@ void SearchBookISBN()
 			//Trở về BooksMenu
 			int n;
 			char list[10];
-			drawRectangle(0, 18, 112, 8, 15);
 			ReadBooksMenuData(n, list);
-			drawRectangle(36, 6, 48, 7, 15);
-			BooksMenu(n, list);
+			drawRectangle(39, 6, 50, 7, 0);
+			MenuBooks(n, list);
+			break;
+		}
+
+	} while (!BACK);
+}
+
+void SearchBookName()
+{
+	bool BACK = false;
+	drawRectangle(39, 6, 50, 23, 0);
+	drawRectangle(39, 6, 50, 7, 0);
+	gotoxy2(43, 8, 10, 0);
+	printf("Enter Name: ");
+	drawRectangle(43, 8, 36, 1, 0);
+	Books A;
+
+	//Nhập tên sách
+	do
+	{
+		drawRectangle(41, 9, 44, 3, 0);
+		drawRectangle(43, 8, 40, 1, 0);
+		//Vẽ nút điều hướng
+		gotoxy2(58, 10, 10, 0);
+		printf("ENTER to Search a book");
+		gotoxy2(58, 11, 10, 0);
+		printf("F12 to Back");
+
+		gotoxy2(43, 8, 10, 0);
+		int status = InputString100(A.name);
+		if (status == -1)
+		{
+			BACK = true;
+		}
+
+
+		//Nếu chưa bấm 'Trở về' thì Xử lý dữ liệu
+		if (!BACK)
+		{
+			List L = CreateBookList();
+			List L2;
+			Init(L2);
+			Node* p;
+			for (p = L.pTail; p != NULL; p = p->pPrev)
+			{
+				if (strstr(p->Data.name, A.name) != NULL)
+				{
+					Insert_first(L2, p->Data);
+				}
+			}
+			if (Len(L2) > 0)
+			{
+				ViewBookList(L2, 10);
+				break;
+			}
+			else printAlert(44, 9, 40, 3, 0, "BOOK NOT AVAILABLE");
+
+		}
+		//Nếu bấm 'Trở về'
+		else
+		{
+			//Trở về BooksMenu
+			int n;
+			char list[10];
+			ReadBooksMenuData(n, list);
+			drawRectangle(39, 6, 50, 7, 0);
+			MenuBooks(n, list);
 			break;
 		}
 

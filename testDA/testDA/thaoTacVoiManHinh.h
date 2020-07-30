@@ -5,6 +5,7 @@
 using namespace std;
 
 void gotoxy(int x, int y);
+void gotoxy2(int x, int y, int txt, int br);
 
 //Trả về tọa độ x của con trỏ vị trí hiện tại
 int whereX();

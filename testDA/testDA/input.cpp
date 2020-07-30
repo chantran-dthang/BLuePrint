@@ -70,26 +70,29 @@ int InputUser(char user[])
 }
 
 void Input(char user[], char pass[]) {
-	drawRectangle(39, 1, 50, 28, 15);
-	DrawAppNameTab(15, 4);
-	drawRectangle(47, 6, 35, 10, 3);
-	gotoxy(48, 7);
-	printf("Username: ");
-	gotoxy(48, 10);
-	printf("Password: ");
+	textBgColor(10, 0);
+	drawRectangle(39, 1, 50, 28, 0);
+	DrawAppNameTab(10, 0);
+	drawRectangle(47, 6, 35, 10, 0);
+	gotoxy2(60, 7, 10, 0);
+	//textBgColor(10, 0);
+	printf("Username ");
+	gotoxy2(60, 10, 10, 0);
+	//textBgColor(10, 0);
+	printf("Password ");
 
 	//vex khung input
-	drawRectangle(48, 8, 33, 1, 15);
-	drawRectangle(48, 11, 33, 1, 15);
-	gotoxy(57, 14);
+	drawRectangle(48, 8, 33, 1, 0);
+	drawRectangle(48, 11, 33, 1, 0);
+	gotoxy2(57, 14, 10, 0);
 	printf("ENTER to login");
 
 	//nhap
 	//inputUser(user);
-	gotoxy(48, 8);
+	gotoxy2(60, 8, 10, 0);
 	InputUser(user);
 	//inputPass(pass);
-	gotoxy(48, 11);
+	gotoxy2(60, 11, 10, 0);
 	InputPass(pass);
 }
 
@@ -360,7 +363,7 @@ int InputString100(char string100[])
 	for (int i = 0; i < 41;)//infinite loop
 	{
 		ch = _getch();//stores char typed in a
-		if (ch >= '!' && ch <= '~')//check if a is numeric or alphabet
+		if (ch >= '!' && ch <= '~'||ch==' ')//check if a is numeric or alphabet
 		{
 			string100[i] = ch;//stores a in pass
 			++i;

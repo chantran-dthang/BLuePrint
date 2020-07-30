@@ -123,24 +123,30 @@
   <ItemGroup>
     <ClCompile Include="Actions.cpp" />
     <ClCompile Include="BookActions.cpp" />
+    <ClCompile Include="BorrowedBooks.cpp" />
     <ClCompile Include="input.cpp" />
     <ClCompile Include="LinkList.cpp" />
     <ClCompile Include="login.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="menu.cpp" />
     <ClCompile Include="ReaderActions.cpp" />
+    <ClCompile Include="RepayBooks.cpp" />
     <ClCompile Include="standardFunction.cpp" />
+    <ClCompile Include="Statics.cpp" />
     <ClCompile Include="thaoTacVoiManHinh.cpp" />
     <ClCompile Include="users.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actions.h" />
     <ClInclude Include="BookActions.h" />
+    <ClInclude Include="BorrowedBooks.h" />
     <ClInclude Include="LinkList.h" />
     <ClInclude Include="login.h" />
     <ClInclude Include="menu.h" />
     <ClInclude Include="ReaderActions.h" />
+    <ClInclude Include="RepayBooks.h" />
     <ClInclude Include="standardFunction.h" />
+    <ClInclude Include="Statics.h" />
     <ClInclude Include="struct.h" />
     <ClInclude Include="thaoTacVoiManHinh.h" />
     <ClInclude Include="input.h" />

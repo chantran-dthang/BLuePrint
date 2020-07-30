@@ -26,12 +26,13 @@ struct Books{
 	char category[101];
 	char bookshelf[11];
 	int quantity;
-	//char prices[101];
+	int prices;
 	//int number;
 	bool exist = true;
 }; 
 
-struct Readers{
+struct Readers
+{
 	long code;
 	char fullname[45];
 	char ID[11];
@@ -41,6 +42,7 @@ struct Readers{
 	char address[101];
 	Day createdDay;
 	Day expirationDay;
+	Books borrowedbook[5];
 };
 
 struct Node{
