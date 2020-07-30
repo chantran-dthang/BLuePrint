@@ -1,0 +1,29 @@
+	//=======================(sap giam truyen vao decending, sap tang truyen vao ascending)===========================
+  void quicksort2(Node* &head, Node*& tail) // actual sort function
+{
+	if (head->next == tail || tail->prev == head)
+	{
+		if (head->data > tail->data) swap(head->data, tail->data);
+		else return;
+	}
+	else
+	{
+		Node* pivot = tail;
+		Node* temp = head;
+		Node* iter = head;
+		while (iter != tail)
+		{
+			if (iter->data < pivot->data)
+			{
+				swap(temp->data, iter->data);
+				temp = temp->next;
+				iter = iter->next;
+			}
+			else
+				iter = iter->next;
+		}
+		swap(iter->data, temp->data);
+		quicksort2(head, temp->prev); // calling for remaining elements (first half)
+		quicksort2(temp->next, tail);
+	}
+}
